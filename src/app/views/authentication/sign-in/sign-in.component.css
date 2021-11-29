@@ -1,0 +1,23 @@
+.signin-form{
+    background-color: rgb(250, 250, 250);
+    position: relative;
+    top: 50px;
+    border-radius: 15px;
+    padding: 30px;
+    
+}
+.btn-primary{
+    background-color: #E87200;
+    border: 1px solid #E87200;
+}
+.btn-primary:not(:disabled):not(.disabled):active {
+    background-color: #E87200;
+    border: 1px solid #E87200;
+    
+}
+.btn-primary:focus {
+    color: #fff;
+    background-color: #E87200;
+    border-color: #E87200;
+    box-shadow: 0 0 0 0.2rem #f0a764;
+}

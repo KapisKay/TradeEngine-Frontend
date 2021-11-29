@@ -1,0 +1,49 @@
+<app-hearder></app-hearder>
+<div class="d-flex flex-column align-items-center"> 
+    <div class="justify-content-center signup-form"> 
+        <form [formGroup]="signUpForm" onsubmit="register()">
+  
+          <div class="m-3">
+            <div class="h4">Wecome to our online portal</div>
+            <p>Register with your credentials</p>
+          </div>
+
+          <div class="m-3">
+            <label for="exampleInputName1" class="form-label">Full Name:</label>
+            <input formControlName="name" type="name" class="form-control" id="exampleInputName1" aria-describedby="nameHelp">
+            <div  
+            *ngIf="signUpForm.get('name')?.touched && signUpForm.get('name')?.hasError('required')" id="nameHelp" class="form-text">Please provide your full name</div>
+          </div>
+  
+          <div class="m-3">
+            <label for="exampleInputEmail1" class="form-label">Email address:</label>
+            <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div  
+            *ngIf="signUpForm.get('email')?.touched && signUpForm.get('email')?.hasError('required')" id="emailHelp" class="form-text">Please provide a valid email
+            </div>
+          </div>
+
+          <div class="m-3">
+            <label for="exampleInputPassword1" class="form-label">Password:</label>
+            <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
+            <div  
+                *ngIf=" signUpForm.get('password')?.touched && signUpForm.get('password')?.hasError('required') || signUpForm.get('password')?.hasError('minlength')" id="passwordHelp" class="form-text"> Your password must be at least 8 characters
+            </div>
+          </div>
+
+          <div class="m-3">
+            <label for="exampleInputPassword1" class="form-label">Re-Enter Password:</label>
+            <input formControlName="confirm_password" type="password" class="form-control" id="exampleInputPassword1">
+            <div 
+                *ngIf="signUpForm.get('confirm_password')?.touched && signUpForm.get('confirm_password')?.hasError('passwordMismatch')" id="emailHelp" class="form-text">Passwords do not much
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button [disabled]=signUpForm.invalid type="submit" class=" m-3 btn btn-primary">Register</button>
+          </div>
+
+      </form>
+    </div>
+  </div>
+  

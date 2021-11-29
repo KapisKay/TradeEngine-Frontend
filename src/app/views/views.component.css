@@ -1,9 +1,10 @@
 .main-ui-container {
     display: flex;
   }
+  
   .incoming-view {
     padding: 0px 30px;
     width: 100%;
     height: 100%;
-    /* overflow-x: auto; */
+    overflow-x: auto;
   }

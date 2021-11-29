@@ -1,0 +1,35 @@
+.nav-link {
+    cursor: pointer;
+  }
+  .wrapper{
+    width:max-content;
+    height: 600px;
+    background-color: antiquewhite;
+    /* border-right: 1px solid rgb(204, 204, 204); */
+  }
+   .nav-item .nav-link {
+    padding: 25px 30px;
+    /* width: max-content; */
+
+    
+  } 
+
+  /* Sidebar links */
+.nav-item  a{
+  display: block;
+  color: black;
+  /* padding: 16px; */
+  text-decoration: none;
+}
+
+/* Active/current link */
+.nav-item a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
+/* Links on mouse-over */
+.nav-item a:hover:not(.active) {
+  background-color: rgb(117, 117, 117);
+  color: white;
+}

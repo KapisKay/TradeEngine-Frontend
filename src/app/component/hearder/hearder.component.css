@@ -1,0 +1,14 @@
+.navBar{
+    border-bottom: 1px solid rgb(204, 204, 204);
+}
+.btn-primary{
+    background-color: #E87200;
+    border: 1px solid #E87200;
+}
+.user img{
+    width: 20px;
+    height: 20px;
+}
+.name{
+    display: inline;
+}
