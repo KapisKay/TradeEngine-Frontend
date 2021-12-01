@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Subscription } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication.service';
+// import { AuthenticationService } from 'src/app/services/authentication.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class TradingLiveComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private utils: UtilsService,
-    private auth: AuthenticationService
+    // private auth: AuthenticationService
   ) {
     this.buyForm = this.initBuy();
    }
@@ -44,16 +44,16 @@ export class TradingLiveComponent implements OnInit {
 
   /** Get a specific product based on id */
   getProduct(id:any){
-    this.auth.get('').subscribe({
-      next: ((response:any) => {
-        console.log('');
-      }
-      ),
-      error:
-      ((error: any)=>{
-        console.log(error)
-      })
-    })
+    // this.auth.get('').subscribe({
+    //   next: ((response:any) => {
+    //     console.log('');
+    //   }
+    //   ),
+    //   error:
+    //   ((error: any)=>{
+    //     console.log(error)
+    //   })
+    // })
    
   }
 
