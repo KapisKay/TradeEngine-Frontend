@@ -3,14 +3,54 @@
         <div class="col-lg-6 col-md-6 col-12" >
             <h4 class="primary">Current Cash Balance:</h4>
             <h3>USD 25,000</h3>
-            <br>
-            <button class="btn btn-primary">Add Funds</button>
         </div>
-        <div class="col-lg-6 col-md-6 col-12 text-right" >
-            <h4><span class="primary">Account ID: </span><span>112331</span></h4>
-            
+        <div class="col-lg-6 col-md-6 col-12 text-lg-right" >
+            <h4><span class="primary">Account ID: </span><span>112331</span></h4>  
         </div>
     </div>
+    <br>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-12" >
+        <button class="btn btn-primary" data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
+      </div>
+    </div>
+
+    <!-- Modal form for adding funds -->
+    <div class="modal fade" id="addFunds" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add Funds</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form [formGroup]="addFundsForm">
+              <div class="">
+                <div class="m-3">
+                  <label class="form-label">Amount:</label>
+                  <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
+                  <div  
+                  *ngIf="addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
+                </div>
+                <div class="m-3">
+                  <label class="form-label">Reference:</label>
+                  <input formControlName="reference" type="text" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
+                  <div  
+                  *ngIf="addFundsForm.get('reference')?.touched && addFundsForm.get('reference')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid reference</div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" (click)="addFund()" [disabled]="addFundsForm.invalid">Add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- / Modal end -->
 
     <br>
     <div class="table-responsive table-row">

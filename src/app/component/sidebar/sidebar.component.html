@@ -1,41 +1,46 @@
 <div id="wrapper" class="wrapper bg-ash flexible-height">
     <div class="sidebar-main sidebar-menu-one sidebar-expand-md sidebar-color">
-      <div class="mobile-sidebar-header d-md-none">
+      <!-- <div class="mobile-sidebar-header d-md-none">
         <div class="header-logo">
-          <!-- <a href="index.html"
+          <a href="index.html"
             ><img src="../../assets/img/logo.jpg" alt="logo"
-          /></a> -->
+          /></a>
         </div>
-      </div>
-      <nav class="nav flex-column sidebar-menu-content">
-        <ul
-          class="nav nav-tabs sidebar-toggle-view"
-          *ngFor="let item of menu_items"
-        >
-          <!-- != GROUP ITEMS -->
-          <li *ngIf="item.type == 'group'" class="nav-item sidebar-nav-item">
-            <a href="#" class="nav-link"
-              ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span>
-              <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
-            >
-            <ul class="nav sub-group-menu">
-              <li class="nav-item" *ngFor="let child of item.children">
-                <a (click)="onNavigate(child.url)" class="nav-link"
-                  ><i [ngClass]="child.icon"></i> {{ child.title }}&nbsp;
-                  <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span>
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- != SINGLE ITEM -->
-          <li *ngIf="item.type == 'item'" class="nav-item active">
-            <a (click)="onNavigate(item.url)" class="nav-link"
-              ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span><span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
-            >
-          </li>
+      </div> -->
+
+      <nav class="navbar flex-column navbar-expand-lg navbar-light">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
       
-        </ul>
+        <div class="collapse navbar-collapse flex-column" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0 flex-column" *ngFor="let item of menu_items">
+    
+            <!-- != GROUP ITEMS -->
+              <li *ngIf="item.type == 'group'" class="nav-item sidebar-nav-item">
+                <a href="#" class="nav-link"
+                  ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span>
+                  <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
+                >
+                <ul class="nav sub-group-menu">
+                  <li class="nav-item" *ngFor="let child of item.children">
+                    <a (click)="onNavigate(child.url)" class="nav-link"
+                      ><i [ngClass]="child.icon"></i> {{ child.title }}&nbsp;
+                      <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span>
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <!-- != SINGLE ITEM -->
+              <li *ngIf="item.type == 'item'" class="nav-item active">
+                <a (click)="onNavigate(item.url)" class="nav-link"
+                  ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span><span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
+                >
+              </li>
+          </ul>
+        </div>
       </nav>
     </div>
   </div>
 
+ 

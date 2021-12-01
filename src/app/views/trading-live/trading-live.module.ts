@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { TradingLiveRoutingModule } from './trading-live-routing.module';
 import { TradingLiveComponent } from './trading-live.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { TradingLiveComponent } from './trading-live.component';
   ],
   imports: [
     CommonModule,
-    TradingLiveRoutingModule
+    TradingLiveRoutingModule,
+    ReactiveFormsModule
   ]
 })
 export class TradingLiveModule { }
