@@ -1,7 +1,7 @@
 <app-hearder></app-hearder>
 <div class="d-flex flex-column align-items-center"> 
     <div class="justify-content-center signup-form"> 
-        <form [formGroup]="signUpForm" onsubmit="register()">
+        <form [formGroup]="signUpForm">
   
           <div class="m-3">
             <div class="h4">Wecome to our online portal</div>
@@ -40,7 +40,7 @@
           </div>
 
           <div class="text-center">
-            <button [disabled]=signUpForm.invalid type="submit" class=" m-3 btn btn-primary">Register</button>
+            <button [disabled]=signUpForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="register()">Register</button>
           </div>
 
       </form>

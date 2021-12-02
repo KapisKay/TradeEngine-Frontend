@@ -1,7 +1,7 @@
 <app-hearder></app-hearder>
 <div class="d-flex flex-column align-items-center"> 
   <div class="justify-content-center signin-form"> 
-      <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="signInForm">
 
         <div class="m-3">
           <div class="h4">Wecome to our online portal</div>
@@ -21,7 +21,7 @@
           *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('required')" id="emailHelp" class="form-text">Please provide a password</div>
         </div>
         <div class="text-center">
-          <button [disabled]=signInForm.invalid type="submit" class=" m-3 btn btn-primary">Login</button>
+          <button [disabled]=signInForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="onSubmit()">Login</button>
         </div>
         <div class="">
           <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->

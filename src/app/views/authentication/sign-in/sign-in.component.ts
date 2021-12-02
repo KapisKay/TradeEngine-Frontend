@@ -14,9 +14,9 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    // private auth : AuthenticationService,
+    private auth : AuthenticationService,
     private router: Router,
-    // private alert: AlertService,
+    private alert: AlertService,
   ) {
     this.signInForm = this.initSignInForm();
    }
@@ -40,25 +40,40 @@ export class SignInComponent implements OnInit {
 
   /**  Login, stored data in local storage and redirect to dashboard */
   const data  = this.signInForm.getRawValue;
-  // this.auth.login('url', data).subscribe(
-  //    (response:any): void=>{
-  //      localStorage.setItem('user_name', response.user_name);
-  //      localStorage.setItem('token', response.token);
-  //      this.router.navigateByUrl('/');
-  //      this.alert.success(`Welcome ${localStorage.getItem('user_name')}` )
-  //    },
-  //    error=>{
-  //     if (error.status == 401) {
-  //       this.alert.info(error['error']['message']);
-  //     } else if (error.status == 404) {
-  //       this.alert.error(error['error']);
-  //     } else if (error.status == 500) {
-  //       this.alert.error('Could not login at the moment');
-  //     } else {
-  //       this.alert.error('An unknown error occurred, please try again later');
-  //     }
-  //    }
-  //  )
+  this.auth.login('signIn', data).subscribe({
+    next: (response:any): void=>{
+      localStorage.setItem('token', response.token);
+      this.getUserDetails(response.token)
+      this.router.navigateByUrl('/');
+      this.alert.success(`Welcome ${localStorage.getItem('user_name')}` )
+    },
+    error: error=>{
+     if (error.status == 401) {
+       this.alert.info(error['error']['message']);
+     } else if (error.status == 404) {
+       this.alert.error(error['error']);
+     } else if (error.status == 500) {
+       this.alert.error('Could not login at the moment');
+     } else {
+       this.alert.error('An unknown error occurred, please try again later');
+     }
+    }
+  } 
+   )
  }
 
+  /** Get user details from access token*/
+  getUserDetails(token:any){
+    this.auth.get(`user?token=${token}`).subscribe({
+      next: (response:any)=>{
+        console.log(response);
+        localStorage.setItem('userID', response.id);
+        localStorage.setItem('name', response.fullName);
+        localStorage.setItem('role', response.userRole)
+      },
+      error: (error)=>{
+        console.log(error);
+      }
+    })
+  }
 }

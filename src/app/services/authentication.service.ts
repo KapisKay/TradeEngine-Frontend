@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const server = '';
+const server = 'localhost:8080/api/v1/';
 
 @Injectable({
   providedIn: 'root'
@@ -21,7 +21,7 @@ export class AuthenticationService {
     });
 
     return this.http.get(
-      'https://' + server + url,
+      'http://' + server + url,
       { headers: config }
     );
   }
@@ -32,7 +32,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url, payload,
+      'http://'  + server + url, payload,
       { headers: config }
     );
 
@@ -44,7 +44,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url + '/' + id,
+      'http://'  + server + url + '/' + id,
       { headers: config }
     );
   }
@@ -55,7 +55,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url + '/' + id, payload,
+      'http://'  + server + url + '/' + id, payload,
       { headers: config }
     );
   }
@@ -66,7 +66,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url + '/' + id, 
+      'http://'  + server + url + '/' + id, 
       { headers: config }
     );
   }
@@ -77,7 +77,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url, payload, 
+      'http://'  + server + url, payload, 
       { headers: config }
     );
   }
@@ -88,7 +88,7 @@ export class AuthenticationService {
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
     return this.http.post(
-      'https://'  + server + url + '/' + id, 
+      'http://'  + server + url + '/' + id, 
       { headers: config }
     );
   }
@@ -98,7 +98,7 @@ export class AuthenticationService {
     const config = new HttpHeaders();
     config.append('Accept', 'application/json')
     return this.http.post(
-      'https://'  + server + url, payload, {}
+      'http://'  + server + url, payload, {}
     );
   }
 
@@ -107,7 +107,7 @@ export class AuthenticationService {
     const config = new HttpHeaders({
       Authorization: 'Bearer ' + localStorage.getItem('token'),
     });
-    return this.http.post('https://' + server + url, payload, {
+    return this.http.post('http://' + server + url, payload, {
       headers: config,
     });
   }
