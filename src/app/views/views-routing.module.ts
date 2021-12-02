@@ -14,6 +14,7 @@ const routes: Routes = [
   {
     path: '',
     component: ViewsComponent,
+    // canActivate: [AuthGuard, ClientGuard],
     children: [
       {
         path: 'dashboard',
@@ -27,6 +28,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./trading-live/trading-live.module').then(
             (module) => module.TradingLiveModule
+          ),
+      },
+      {
+        path: 'orders',
+        loadChildren: () =>
+          import('./order-history/order-history.module').then(
+            (module) => module.OrderHistoryModule
           ),
       },
       {
@@ -48,6 +56,13 @@ const routes: Routes = [
         loadChildren: () =>
           import('./reporting/reporting.module').then(
             (module) => module.ReportingModule
+          ),
+      },
+      {
+        path: 'account',
+        loadChildren: () =>
+          import('./account/account.module').then(
+            (module) => module.AccountModule
           ),
       },
     ]

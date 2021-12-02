@@ -3,9 +3,10 @@
   }
   .wrapper{
     width:max-content;
-    height: 600px;
+    height:80vh;
+    min-height: 70vh;
     background-color: antiquewhite;
-    /* border-right: 1px solid rgb(204, 204, 204); */
+    margin-bottom: 0px;
   }
    .nav-item .nav-link {
     padding: 25px 30px;

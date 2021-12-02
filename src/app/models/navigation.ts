@@ -55,9 +55,41 @@ export interface NavigationItem {
         icon: 'fa fa-copy',
         url: '/reporting',
       },
+      {
+        id: 'account',
+        title: 'Account',
+        type: 'item',
+        icon: 'fa fa-money',
+        url: '/account',
+      },
   ];
+
+  const RegulatorNavigationItems = [
+    {
+      id: 'dashboard',
+      title: 'Dashboard',
+      type: 'item',
+      icon: 'fa fa-desktop',
+      url: 'regulator/dashboard',
+
+    },
+    // {
+    //   id: 'reporting',
+    //   title: 'Reporting',
+    //   type: 'item',
+    //   icon: 'fa fa-copy',
+    //   url: '/reporting',
+    // },
+];
 
   @Injectable()
     export class NavigationItem {
-    public get() {return NavigationItems}
+    public get() {
+      if( localStorage.getItem('role')== 'Client'){
+        return NavigationItems
+      }
+      else{
+        return RegulatorNavigationItems
+      }
+      }
 }

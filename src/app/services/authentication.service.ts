@@ -112,4 +112,23 @@ export class AuthenticationService {
     });
   }
 
+  /** get User */
+  getUser(){
+    return localStorage.getItem('user');
+  }
+
+  /** Get role */
+  getRole(){
+    return localStorage.getItem('role');
+  }
+
+  /** get Token */
+  getToken(){
+    localStorage.getItem('token');
+  }
+
+  /** Checked Logged in User */
+  isLoggedIn(){
+    return this.getToken !== null && this.getUser ! == null;
+  }
 }
