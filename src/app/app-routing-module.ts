@@ -27,6 +27,17 @@ const routes: Routes = [
         
         ],
     },
+    {
+        path: '',
+        children: [
+        {
+            path: '',
+            loadChildren: () =>
+            import('./admin-views/admin-views.module').then((module) => module.AdminViewsModule),
+        },
+        
+        ],
+    },
     { path: '', component: SignInComponent},
     { path: '**', redirectTo: '/authentication/sign-in', pathMatch: 'full' },
 ]

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute,  Event, NavigationEnd, Router, RouterEvent } from '@angular/router';
 import { filter } from 'rxjs';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-hearder',
@@ -14,6 +15,7 @@ export class HearderComponent implements OnInit {
   constructor(
     private route : ActivatedRoute,
     private router: Router,
+    private auth: AuthenticationService
   ) { 
     this.getQueryParam();
   }
@@ -40,6 +42,20 @@ export class HearderComponent implements OnInit {
 
   login(){
     this.router.navigateByUrl('/authentication/sign-in')
+  }
+
+  logOut(){
+    const role = localStorage.getItem('role');
+    if(role == 'client'){
+      this.router.navigateByUrl('/authentication/sign-in');
+    }
+    else if( role == 'regulator'){
+      this.router.navigateByUrl('/authentication/sign-in/regulator');
+    }
+    else{
+      this.router.navigateByUrl('/authentication/sign-in/admin');
+    }
+    this.auth.logout();
   }
 
 }

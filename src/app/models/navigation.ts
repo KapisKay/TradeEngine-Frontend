@@ -81,15 +81,35 @@ export interface NavigationItem {
     //   url: '/reporting',
     // },
 ];
+const AdminNavigationItems = [
+  {
+    id: 'dashboard',
+    title: 'Dashboard',
+    type: 'item',
+    icon: 'fa fa-desktop',
+    url: 'admin/dashboard',
+
+  },
+  // {
+  //   id: 'reporting',
+  //   title: 'Reporting',
+  //   type: 'item',
+  //   icon: 'fa fa-copy',
+  //   url: '/reporting',
+  // },
+];
 
   @Injectable()
     export class NavigationItem {
     public get() {
-      if( localStorage.getItem('role')== 'Client'){
+      if( localStorage.getItem('role')== 'client'){
         return NavigationItems
       }
-      else{
+      else if( localStorage.getItem('role')== 'regulator') {
         return RegulatorNavigationItems
       }
+      else{
+        return AdminNavigationItems
       }
+    }
 }

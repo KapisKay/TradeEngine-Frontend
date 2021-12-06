@@ -112,6 +112,13 @@ export class AuthenticationService {
     });
   }
 
+  /** Log out  */
+  logout(){
+    localStorage.removeItem('userID');
+    localStorage.removeItem('user');
+    localStorage.removeItem('role')
+  }
+
   /** get User */
   getUser(){
     return localStorage.getItem('user');

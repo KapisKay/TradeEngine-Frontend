@@ -12,6 +12,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class SignInComponent implements OnInit {
   signInForm : FormGroup;
 
+
   constructor(
     private formBuilder: FormBuilder,
     private auth : AuthenticationService,
@@ -43,9 +44,19 @@ export class SignInComponent implements OnInit {
   this.auth.login('signIn', data).subscribe({
     next: (response:any): void=>{
       localStorage.setItem('token', response.token);
-      this.getUserDetails(response.token)
-      this.router.navigateByUrl('/');
-      this.alert.success(`Welcome ${localStorage.getItem('user_name')}` )
+      this.getUserDetails(response.token);
+      const role = localStorage.getItem('role');
+      if(role == 'client'){
+        this.router.navigateByUrl('/dashboard');
+      }
+      else if( role == 'regulator'){
+        this.router.navigateByUrl('/regulator/dashboard');
+      }
+      else{
+        this.router.navigateByUrl('/admin/dashboard');
+      }
+     
+      this.alert.success(`Welcome ${localStorage.getItem('user')}` )
     },
     error: error=>{
      if (error.status == 401) {
@@ -68,7 +79,7 @@ export class SignInComponent implements OnInit {
       next: (response:any)=>{
         console.log(response);
         localStorage.setItem('userID', response.id);
-        localStorage.setItem('name', response.fullName);
+        localStorage.setItem('user', response.fullName);
         localStorage.setItem('role', response.userRole)
       },
       error: (error)=>{
