@@ -1,17 +1,22 @@
 <div class="container-fluid">
-    <div class="row">
+    <div *ngIf="isLoading" class="d-flex justify-content-center">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+    </div>
+    <div class="row" *ngIf="!isLoading">
         <div class="col-lg-6 col-md-6 col-12" >
             <h4 class="primary">Current Cash Balance:</h4>
-            <h3>USD 25,000</h3>
+            <h3>{{accountDetails?.account_balance}}</h3>
         </div>
         <div class="col-lg-6 col-md-6 col-12 text-lg-right" >
-            <h4><span class="primary">Account ID: </span><span>112331</span></h4>  
+            <h4><span class="primary">Account ID: </span><span>{{accountDetails?.account_id}}</span></h4>  
         </div>
     </div>
     <br>
     <div class="row">
-      <div class="col-lg-6 col-md-6 col-12" >
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
+      <div class="col-lg-6 col-md-6 col-12 " >
+        <button class="btn btn-primary " data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
       </div>
     </div>
 
@@ -35,17 +40,23 @@
                   *ngIf="addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
                 </div>
                 <div class="m-3">
-                  <label class="form-label">Reference:</label>
-                  <input formControlName="reference" type="text" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
+                  <label class="form-label">Mode of Payment:</label>
+                  <select formControlName = "modeOfPayment" class=" form-control form-select" aria-label="Default select example">
+                    <option value="Mobile Money">Mobile Money</option>
+                    <option value="Card">Card</option>
+                  </select>
                   <div  
-                  *ngIf="addFundsForm.get('reference')?.touched && addFundsForm.get('reference')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid reference</div>
+                  *ngIf="addFundsForm.get('modeOfPayment')?.touched && addFundsForm.get('modeOfPayment')?.hasError('required')" id="modeOfPaymentHelp" class="form-text">Please provide a valid mode of payment</div>
                 </div>
               </div>
             </form>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" (click)="addFund()" [disabled]="addFundsForm.invalid">Add</button>
+            <button *ngIf="!isSaving" type="button" class="btn btn-primary" (click)="addFund()" [disabled]="addFundsForm.invalid">Add</button>
+            <button  *ngIf="isSaving" type="button" class="btn btn-primary">
+              <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
+              Adding...</button>
           </div>
         </div>
       </div>
@@ -55,7 +66,11 @@
     <br>
     <div class="table-responsive table-row">
         <h5 class="primary">Funds Histroy</h5>
-        <table class="table  table-borderless">
+        <div class="text-center">
+          <br/>
+          <h5>You have not made any transactions to this account</h5>
+        </div>
+        <table *ngIf="transactions.length !== 0" class="table  table-borderless">
             <thead>
               <tr>
                 <th scope="col">Date</th>

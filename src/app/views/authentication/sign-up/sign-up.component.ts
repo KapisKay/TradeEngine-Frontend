@@ -17,7 +17,7 @@ export class SignUpComponent implements OnInit {
   password = null;
   paramRoute: string = '';
   role: string = '';
-
+  isSaving = false;
   constructor(
     private formBuilder: FormBuilder,
     private validationService: ValidationServiceService,
@@ -81,16 +81,18 @@ export class SignUpComponent implements OnInit {
       password: formData.password,
     }
     console.log(data)
-
+    this.isSaving = true;
     this.auth.createUser(`signUp?role=${this.role}` , data).subscribe({
       next: (response:any)=>{
         console.log(response);
+        this.isSaving = false;
         this.alert.success('Account created successfully. Please Login');
         this.router.navigateByUrl('/authentication/sign-in');
       },
       error: error=>{
+        this.isSaving = false;
         console.log(error);
-        this.alert.error(error.error)
+        this.alert.error(error.message)
       }
     }
     )

@@ -11,6 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class SignInComponent implements OnInit {
   signInForm : FormGroup;
+  isSaving = false;
 
 
   constructor(
@@ -41,11 +42,13 @@ export class SignInComponent implements OnInit {
 
   /**  Login, stored data in local storage and redirect to dashboard */
   const data  = this.signInForm.getRawValue;
+  this.isSaving = true;
   this.auth.login('signIn', data).subscribe({
     next: (response:any): void=>{
       localStorage.setItem('token', response.token);
-      this.getUserDetails(response.token);
+      this.getUserDetails();
       const role = localStorage.getItem('role');
+      this.isSaving = false
       if(role == 'client'){
         this.router.navigateByUrl('/dashboard');
       }
@@ -59,6 +62,7 @@ export class SignInComponent implements OnInit {
       this.alert.success(`Welcome ${localStorage.getItem('user')}` )
     },
     error: error=>{
+      this.isSaving = false;
      if (error.status == 401) {
        this.alert.info(error['error']['message']);
      } else if (error.status == 404) {
@@ -74,8 +78,8 @@ export class SignInComponent implements OnInit {
  }
 
   /** Get user details from access token*/
-  getUserDetails(token:any){
-    this.auth.get(`user?token=${token}`).subscribe({
+  getUserDetails(){
+    this.auth.get('user').subscribe({
       next: (response:any)=>{
         console.log(response);
         localStorage.setItem('userID', response.id);

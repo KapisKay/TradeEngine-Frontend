@@ -21,7 +21,10 @@
           *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('required')" id="emailHelp" class="form-text">Please provide a password</div>
         </div>
         <div class="text-center">
-          <button [disabled]=signInForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="onSubmit()">Login</button>
+          <button *ngIf="!isSaving" [disabled]=signInForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="onSubmit()">Login</button>
+          <button *ngIf="isSaving" type="submit" class=" m-3 btn btn-primary">
+            <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
+            Logging In ...</button>
         </div>
         <div class="">
           <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->

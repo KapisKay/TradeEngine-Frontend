@@ -40,7 +40,10 @@
           </div>
 
           <div class="text-center">
-            <button [disabled]=signUpForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="register()">Register</button>
+            <button *ngIf="!isSaving" [disabled]=signUpForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="register()">Register</button>
+            <button *ngIf="isSaving" type="submit" class=" m-3 btn btn-primary">
+              <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
+              Registering ...</button>
           </div>
 
       </form>
