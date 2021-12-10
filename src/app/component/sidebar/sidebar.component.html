@@ -32,7 +32,7 @@
                 </ul>
               </li>
               <!-- != SINGLE ITEM -->
-              <li *ngIf="item.type == 'item'" class="nav-item active">
+              <li [ngClass]="{'active': this.item.url == activeRoute}" *ngIf="item.type == 'item'" class="nav-item">
                 <a (click)="onNavigate(item.url)" class="nav-link"
                   ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span><span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
                 >

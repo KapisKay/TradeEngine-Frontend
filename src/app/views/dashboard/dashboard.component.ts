@@ -73,7 +73,7 @@ export class DashboardComponent implements OnInit {
   /** Get Account Details */
   getAccountDetails(){
     this.isLoading = true;
-    this.auth.get('account/accountId/' + this.userID).subscribe({
+    this.auth.get('accountservice/account/accountId/' + this.userID).subscribe({
       next: (response:any) =>{
         console.log(response);
         this.accountDetails.account_id = response.accountID;
@@ -93,7 +93,7 @@ export class DashboardComponent implements OnInit {
   /** Get Order List */
   getOrders(){
     this.isLoading = true;
-    this.auth.get('').subscribe({
+    this.auth.get('orderservice/users/'+this.userID).subscribe({
       next: (response:any)=>{
         console.log(response);
         this.orders = response;

@@ -1,4 +1,10 @@
 <div class="container-fluid">
+  <div *ngIf="isLoading" class="d-flex justify-content-center">
+    <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+      <span class="sr-only">Loading...</span>
+    </div>
+  </div>
+  <div *ngIf="!isLoading" class="">
     <div class="text-center">
       <h4 class="title">Market Data</h4>
     </div>
@@ -8,24 +14,31 @@
         <table class="table  table-borderless">
             <thead>
               <tr class ="tableheader">
+                <!-- <th scope="col">ID</th> -->
                 <th scope="col">Ticker</th>
                 <th scope="col">Last Traded Price</th>
-                <th scope="col">Max Price Shift</th>
-                <th scope="col">Ask Price</th>
-                <th scope="col">Bid Price</th>
-                <th scope="col">Buy Limit</th>
+                <th scope="col">Max Price Shift ($)</th>
+                <th scope="col">Ask Price ($)</th>
+                <th scope="col">Bid Price ($)</th>
+                <th scope="col">Buy Limit </th>
+                <th scope="col">Sell Limit </th>
+                <th scope="col">As At</th>
+                
                 <th scope="col"></th>
               </tr>
             </thead>
             <tbody>
-              <tr class="tableData">
-                <th class="primary" scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>  <button class="btn btn-secondary buy" data-toggle="modal" data-target="#buyModal" id="add-funds" >Buy</button>  </td>
+              <tr class="tableData" *ngFor="let data of market_data">
+                <!-- <th class="primary" scope="row">{{data?.id}}</th> -->
+                <td class="primary">{{data?.ticker}}</td>
+                <td>{{data?.lastTradedPrice}}</td>
+                <td>{{data?.maxPriceShift}}</td>
+                <th scope="row">{{data?.askPrice}}</th>
+                <td class="primary">{{data?.bidPrice}}</td>
+                <td>{{data?.buyLimit}}</td>
+                <td>{{data?.sellLimit}}</td>
+                <td>{{data?.timestamp | date: 'YYYY-dd-MM HH:ss' }}</td>
+                <td>  <button class="btn btn-secondary buy" data-toggle="modal" data-target="#buyModal" id="add-funds" (click)="getProduct(data?.ticker)" >Buy</button>  </td>
                
               </tr>
             </tbody>
@@ -47,28 +60,28 @@
                       Ticker: {{product?.ticker}}
                     </div>
                     <div class="col-lg-6 col-12">
-                      Last traded price: {{product?.last_traded_price}}
+                      Last traded price: {{product?.lastTradedPrice}}
                     </div>
                     <div class="col-lg-6 col-12">
-                      Bid price: {{product?.bid_price}}
+                      Bid price: {{product?.bidPrice}}
                     </div>
                     <div class="col-lg-6 col-12">
-                     Buy Limit: {{product?.buy_limit}}
+                     Buy Limit: {{product?.buyLimit}}
                     </div>
                   </div>
                   <form [formGroup]="buyForm">
                     <div class="">
                       <div class="m-3">
                         <label class="form-label">Amount:</label>
-                        <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
+                        <input formControlName="amount" type="number" class="form-control" min="1" id="amountInput" aria-describedby="amountlHelp">
                       <div  
                         *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
                       </div>
                       <div class="m-3">
-                        <label class="form-label">Reference:</label>
-                        <input formControlName="reference" type="text" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
+                        <label class="form-label">Quantity:</label>
+                        <input formControlName="quantity" type="number" min="1" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
                       <div  
-                        *ngIf="buyForm.get('reference')?.touched && buyForm.get('reference')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid reference</div>
+                        *ngIf="buyForm.get('quantity')?.touched && buyForm.get('quantity')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid quantity</div>
                       </div>
                     </div>
     
@@ -76,7 +89,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" (click)="buyProduct(product?.id)" [disabled]="buyForm.invalid">Buy</button>
+                  <button type="button" class="btn btn-primary" (click)="buyProduct(product?.ticker)" [disabled]="buyForm.invalid">Buy</button>
                 </div>
               </div>
             </div>
@@ -84,5 +97,7 @@
 
           <!-- / Modal end -->
     </div>
+  </div>
+    
 </div>
 

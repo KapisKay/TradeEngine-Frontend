@@ -13,6 +13,7 @@ import { NavigationItem } from 'src/app/models/navigation';
 export class SidebarComponent implements OnInit , AfterViewInit{
   navigation: NavigationItem = new NavigationItem();
   menu_items: any[] = [];
+  activeRoute: any;
 
   constructor( 
     private router: Router,
@@ -20,6 +21,7 @@ export class SidebarComponent implements OnInit , AfterViewInit{
 
   ngOnInit(): void {
     this.menu_items = this.navigation.get();
+    this.activeRoute = this.router.url;
   }
 
   ngAfterViewInit(): void {
