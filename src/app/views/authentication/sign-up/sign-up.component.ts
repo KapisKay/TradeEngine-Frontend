@@ -82,7 +82,7 @@ export class SignUpComponent implements OnInit {
     }
     console.log(data)
     this.isSaving = true;
-    this.auth.createUser(`signUp?role=${this.role}` , data).subscribe({
+    this.auth.createUser(`authservice/signUp?role=${this.role}` , data).subscribe({
       next: (response:any)=>{
         console.log(response);
         this.isSaving = false;

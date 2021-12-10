@@ -34,3 +34,15 @@
   background-color: rgb(117, 117, 117);
   color: white;
 }
+
+.nav-link i {
+  color: #002856;
+  font-size: 25px;
+  line-height: 34px;
+}
+.nav-link span {
+  color: #000022;
+  font-size: 20px;
+  padding: 20px;
+  line-height: 34px;
+}

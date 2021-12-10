@@ -102,10 +102,10 @@ const AdminNavigationItems = [
   @Injectable()
     export class NavigationItem {
     public get() {
-      if( localStorage.getItem('role')== 'client'){
+      if( localStorage.getItem('role')== 'CLIENT'){
         return NavigationItems
       }
-      else if( localStorage.getItem('role')== 'regulator') {
+      else if( localStorage.getItem('role')== 'REGULATOR') {
         return RegulatorNavigationItems
       }
       else{

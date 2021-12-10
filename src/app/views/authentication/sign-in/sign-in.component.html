@@ -4,21 +4,21 @@
       <form [formGroup]="signInForm">
 
         <div class="m-3">
-          <div class="h4">Wecome to our online portal</div>
-          <p>Login with your credentials</p>
+          <div class="h4 welcome">Wecome to our online portal</div>
+          <p class="sub">Login with your credentials</p>
         </div>
 
         <div class="m-3">
           <label for="exampleInputEmail1" class="form-label">Email address:</label>
           <input formControlName="email" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-          <div  
+          <div 
           *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('required')" id="emailHelp" class="form-text">Please provide a valid email</div>
         </div>
         <div class="m-3">
           <label for="exampleInputPassword1" class="form-label">Password:</label>
           <input formControlName="password" type="password" class="form-control" id="exampleInputPassword1">
           <div  
-          *ngIf="signInForm.get('email')?.touched && signInForm.get('email')?.hasError('required')" id="emailHelp" class="form-text">Please provide a password</div>
+          *ngIf="signInForm.get('password')?.touched && signInForm.get('password')?.hasError('required')" id="passwordHelp" class="form-text">Please provide a password</div>
         </div>
         <div class="text-center">
           <button *ngIf="!isSaving" [disabled]=signInForm.invalid type="submit" class=" m-3 btn btn-primary" (click)="onSubmit()">Login</button>
@@ -28,7 +28,7 @@
         </div>
         <div class="">
           <!-- <input type="checkbox" class="form-check-input" id="exampleCheck1"> -->
-          <p class="form-check-label text-center" for="exampleCheck1">Forgot Password?</p>
+          <p class="form-check-label text-center forgot" for="exampleCheck1">Forgot Password?</p>
         </div>
     </form>
   </div>

@@ -1,102 +1,138 @@
 <div class="container-fluid">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-12" >
-            <h4 class="primary">Current Cash Balance:</h4>
-            <h3>USD 25,000</h3>
-        </div>
-        <div class="col-lg-6 col-md-6 col-12 text-lg-right" >
-            <h4><span class="primary">Account ID: </span><span>112331</span></h4>  
-        </div>
-    </div>
-    <br>
-    <!-- <div class="row">
-      <div class="col-lg-6 col-md-6 col-12" >
-        <button class="btn btn-primary" data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
+    <div *ngIf="isLoading" class="d-flex justify-content-center">
+      <div class="spinner-border" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Loading...</span>
       </div>
-    </div> -->
-
-    <br>
-    <div class="table-responsive table-row">
-        <h5 class="primary">Orders</h5>
-        <table class="table  table-borderless">
-            <thead>
-              <tr>
-                <th scope="col">Date</th>
-                <th scope="col">Ticker</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Amount</th>
-                <th scope="col">Side</th>
-                <th scope="col">Status</th>
-                <th scope="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>@mdo</td>
-                <td>Mark</td>
-                <td>Otto</td>
-                <td>
-                  <button data-toggle="modal" data-target="#buyModal" id="edit-order" class="btn btn-info m-1"><i class="fa fa-edit"></i></button>
-                  <button (click)="confirmCancel('id', 'ticker','side')" class="btn btn-danger m-1"><i class="fa fa-times"></i></button>
-                </td>
-              </tr>
-            </tbody>
-          </table>
     </div>
 
-        <!-- Modal form for adding funds -->
-        <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="buyModalLabel">Edit Order</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
+    <div *ngIf="!isLoading">
+      <div class="row">
+          <div class="col-lg-6 col-md-6 col-12" >
+              <h4 class="primary">Current Cash Balance:</h4>
+              <h3 class="sub">USD 25,000</h3>
+          </div>
+          <div class="col-lg-6 col-md-6 col-12 text-lg-right" >
+              <h4><span class="primary">Account ID: </span><span class="sub">112331</span></h4>  
+          </div>
+      </div>
+      <br>
+      <!-- <div class="row">
+        <div class="col-lg-6 col-md-6 col-12" >
+          <button class="btn btn-primary" data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
+        </div>
+      </div> -->
+
+      <br>
+      <div class="">
+        <form [formGroup]="searchForm" class="row">
+          <div class=" col-lg-4 col-12 m-3">
+            <label class="form-label">Side:</label>
+              <select formControlName = "side" class=" form-control form-select" aria-label="Default select example">
+                <option value="Buy">Buy</option>
+                <option value="Sell">Sell</option>
+              </select>
+          </div>
+          <div class=" col-lg-5 col-12 m-3">
+            <label class="form-label">Status:</label>
+            <select formControlName = "status" class=" form-control form-select" aria-label="Default select example">
+              <option value="Canceled">Canceled</option>
+              <option value="Processing">Prosessing</option>
+              <option value="Validated">Validated</option>
+            </select>
+          </div>
+          <div class="col-lg-2 col-12 mt-lg-5 m-3">
+            <div class="text-rigt">
+               <button (click)="search()" class="btn btn-primary text-right"> Search </button>
+            </div>
+           
+          </div>
+        </form>
+      </div>
+      <div class="table-responsive table-row">
+          <h5 class="primary">Orders</h5>
+          <table class="table  table-borderless">
+              <thead>
+                <tr class="tableheader">
+                  <th scope="col">Order ID</th>
+                  <th scope="col">Time Stamp</th>
+                  <th scope="col">Ticker</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Side</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr class="tabledata">
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>@mdo</td>
+                  <td>Mark</td>
+                  <td>Otto</td>
+                  <td>
+                    <button data-toggle="modal" data-target="#buyModal" id="edit-order" class="btn btn-info m-1"><i class="fa fa-edit"></i></button>
+                    <button (click)="confirmCancel('id', 'ticker','side')" class="btn btn-danger m-1"><i class="fa fa-times"></i></button>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+
+      <!-- Modal form for adding funds -->
+      <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="buyModalLabel">Edit Order</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="row m-3">
+                <div class="col-lg-6 col-12">
+                  Ticker: {{order?.ticker}}
+                </div>
+                <div class="col-lg-6 col-12">
+                  Last traded price: {{order?.last_traded_price}}
+                </div>
+                <div class="col-lg-6 col-12">
+                  Bid price: {{order?.bid_price}}
+                </div>
+                <div class="col-lg-6 col-12">
+                  Buy Limit: {{order?.buy_limit}}
+                </div>
               </div>
-              <div class="modal-body">
-                <div class="row m-3">
-                  <div class="col-lg-6 col-12">
-                    Ticker: {{product?.ticker}}
+              <form [formGroup]="buyForm">
+                <div class="">
+                  <div class="m-3">
+                    <label class="form-label">Amount:</label>
+                    <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
+                  <div  
+                    *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
                   </div>
-                  <div class="col-lg-6 col-12">
-                    Last traded price: {{product?.last_traded_price}}
-                  </div>
-                  <div class="col-lg-6 col-12">
-                    Bid price: {{product?.bid_price}}
-                  </div>
-                  <div class="col-lg-6 col-12">
-                   Buy Limit: {{product?.buy_limit}}
+                  <div class="m-3">
+                    <label class="form-label">Quantity:</label>
+                    <input formControlName="quantity" type="number" class="form-control" id="quantityInput" aria-describedby="quantitylHelp">
+                  <div  
+                    *ngIf="buyForm.get('quantity')?.touched && buyForm.get('quantity')?.hasError('required')" id="quantityHelp" class="form-text">Please provide a valid quantity</div>
                   </div>
                 </div>
-                <form [formGroup]="buyForm">
-                  <div class="">
-                    <div class="m-3">
-                      <label class="form-label">Amount:</label>
-                      <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
-                    <div  
-                      *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
-                    </div>
-                    <div class="m-3">
-                      <label class="form-label">Reference:</label>
-                      <input formControlName="reference" type="text" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
-                    <div  
-                      *ngIf="buyForm.get('reference')?.touched && buyForm.get('reference')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid reference</div>
-                    </div>
-                  </div>
-  
-                </form>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="updateOrder(product?.id)" [disabled]="buyForm.invalid">Update Order</button>
-              </div>
+
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" (click)="updateOrder(order?.id)" [disabled]="buyForm.invalid">Update Order</button>
             </div>
           </div>
         </div>
+      </div>
 
-        <!-- / Modal end -->
+      <!-- / Modal end -->
+    </div>
+    
   </div>

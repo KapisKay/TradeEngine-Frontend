@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-const server = 'localhost:8080/api/v1/';
+const server = 'localhost:9090/api/v1/';
 
 @Injectable({
   providedIn: 'root'
@@ -97,6 +97,7 @@ export class AuthenticationService {
   login(url:string, payload:any){
     const config = new HttpHeaders();
     config.append('Accept', 'application/json')
+    config.append('Content-Type', 'application/json')
     return this.http.post(
       'http://'  + server + url, payload, {}
     );
@@ -116,7 +117,8 @@ export class AuthenticationService {
   logout(){
     localStorage.removeItem('userID');
     localStorage.removeItem('user');
-    localStorage.removeItem('role')
+    localStorage.removeItem('role');
+    localStorage.removeItem('token')
   }
 
   /** get User */

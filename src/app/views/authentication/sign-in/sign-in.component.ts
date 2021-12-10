@@ -1,3 +1,4 @@
+import { HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -12,7 +13,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class SignInComponent implements OnInit {
   signInForm : FormGroup;
   isSaving = false;
-
+  role: any;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -41,25 +42,18 @@ export class SignInComponent implements OnInit {
    }
 
   /**  Login, stored data in local storage and redirect to dashboard */
-  const data  = this.signInForm.getRawValue;
+  const data = this.signInForm.getRawValue();
+  // const data = {
+  //   email: formData.email,
+  // }
   this.isSaving = true;
-  this.auth.login('signIn', data).subscribe({
+  this.auth.login('authservice/signIn', data).subscribe({ 
     next: (response:any): void=>{
       localStorage.setItem('token', response.token);
       this.getUserDetails();
-      const role = localStorage.getItem('role');
-      this.isSaving = false
-      if(role == 'client'){
-        this.router.navigateByUrl('/dashboard');
-      }
-      else if( role == 'regulator'){
-        this.router.navigateByUrl('/regulator/dashboard');
-      }
-      else{
-        this.router.navigateByUrl('/admin/dashboard');
-      }
+      // const role = localStorage.getItem('role');
+      this.isSaving = false;
      
-      this.alert.success(`Welcome ${localStorage.getItem('user')}` )
     },
     error: error=>{
       this.isSaving = false;
@@ -68,7 +62,7 @@ export class SignInComponent implements OnInit {
      } else if (error.status == 404) {
        this.alert.error(error['error']);
      } else if (error.status == 500) {
-       this.alert.error('Could not login at the moment');
+       this.alert.error(error.error.message);
      } else {
        this.alert.error('An unknown error occurred, please try again later');
      }
@@ -79,12 +73,24 @@ export class SignInComponent implements OnInit {
 
   /** Get user details from access token*/
   getUserDetails(){
-    this.auth.get('user').subscribe({
+    this.auth.get('authservice/user').subscribe({
       next: (response:any)=>{
         console.log(response);
         localStorage.setItem('userID', response.id);
         localStorage.setItem('user', response.fullName);
         localStorage.setItem('role', response.userRole)
+        this.role = response.userRole;
+        if(this.role == 'CLIENT'){
+          this.router.navigateByUrl('/dashboard');
+        }
+        else if( this.role == 'Regulator'){
+          this.router.navigateByUrl('/regulator/dashboard');
+        }
+        else{
+          this.router.navigateByUrl('/admin/dashboard');
+        }
+       
+        this.alert.success(`Welcome ${localStorage.getItem('user')}` )
       },
       error: (error)=>{
         console.log(error);

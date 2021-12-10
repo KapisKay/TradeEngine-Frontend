@@ -20,7 +20,7 @@ export class AccountComponent implements OnInit {
     account_balance : ''
   }
 
-  transactions = [];
+  transactions: any;
 
 
   constructor(
@@ -33,7 +33,7 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.getAccountDetails();
   }
 
   initAddfunds():FormGroup{

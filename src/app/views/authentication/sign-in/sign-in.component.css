@@ -1,9 +1,11 @@
 .signin-form{
-    background-color: rgb(250, 250, 250);
+    /* background-color: rgb(250, 250, 250); */
     position: relative;
     top: 50px;
-    border-radius: 15px;
+    border-radius: 2px;
     padding: 30px;
+    background: rgba(196, 196, 196, 0.08);
+    box-shadow: 10px 4px 4px rgba(0, 0, 0, 0.08);
     
 }
 .btn-primary{
@@ -20,4 +22,25 @@
     background-color: #E87200;
     border-color: #E87200;
     box-shadow: 0 0 0 0.2rem #f0a764;
+}
+
+.welcome{
+    color: #000022;
+    font-weight: 400;
+    font-size: 37px;
+    line-height: 41.7px; 
+}
+label, .forgot{
+    color: #000022;
+}
+.sub{
+    font-size: 20px;
+    line-height: 28.18px;
+    color: #999393;
+    font-weight: normal;
+}
+.form-text{
+    font-size: 15px;
+    font-style: italic;
+    color:red;
 }

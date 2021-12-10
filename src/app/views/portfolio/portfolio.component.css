@@ -27,3 +27,19 @@
     border-color: #E87200;
     box-shadow: 0 0 0 0.2rem #f0a764;
 }
+
+.sub, .tabledata, .modal-body{
+    color: #000020
+}
+.title{
+    margin-top: 15px;
+    color: #000020;
+}
+
+.buy{
+    background: #000020;
+}
+
+.tableheader{
+    color: rgba(0, 0, 34, 0.3);
+}

@@ -11,7 +11,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class HearderComponent implements OnInit {
 
   paramRoute: string = '';
-  name = null;
+  name = localStorage.getItem('user');
+
   constructor(
     private route : ActivatedRoute,
     private router: Router,
@@ -32,9 +33,7 @@ export class HearderComponent implements OnInit {
    });
   }
 
-  getUserName(){
-   localStorage.getItem('user_name');
-  }
+
 
   register(){
     this.router.navigateByUrl('/authentication/sign-up')
