@@ -27,3 +27,8 @@
 .sub, .tabledata, .modal-body{
     color: #000020
 }
+.form-text{
+    color: red;
+    font-size: 15;
+    font-style: italic;
+}

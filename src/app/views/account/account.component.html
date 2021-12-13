@@ -8,7 +8,7 @@
       <div class="row" *ngIf="!isLoading">
         <div class="col-lg-6 col-md-6 col-12" >
             <h4 class="primary">Current Cash Balance:</h4>
-            <h3 class="sub">{{accountDetails.account_balance | number :'1.2-2'}}</h3>
+            <h3 class="sub">USD {{accountDetails?.account_balance | number :'1.2-2'}}</h3>
         </div>
         <div class="col-lg-6 col-md-6 col-12 text-lg-right" >
             <h4><span class="primary">Account ID: </span><span class="sub">{{accountDetails?.account_id}}</span></h4>  
@@ -17,7 +17,10 @@
       <br>
       <div class="row">
         <div class="col-lg-6 col-md-6 col-12 " >
-          <button class="btn btn-primary " data-toggle="modal" data-target="#addFunds" id="add-funds" >Add Funds</button>  
+          <button *ngIf="accountDetails?.account_balance  !== null" class="btn btn-primary " data-toggle="modal" data-target="#addFunds" id="add-funds" (click)="withdraw()" >Withdraw Funds</button>  
+        </div>
+        <div class="col-lg-6 col-md-6 col-12 text-right" >
+          <button class="btn btn-primary " data-toggle="modal" data-target="#addFunds" id="add-funds" (click)="add()" >Add Funds</button>  
         </div>
       </div>
 
@@ -36,10 +39,15 @@
                 <div class="">
                   <div class="m-3">
                     <label class="form-label">Amount:</label>
-                    <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
+                    <input formControlName="amount" required  type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
                     <div  
-                    *ngIf="addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
+                    *ngIf="transactiontype == 'withdraw' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required') || addFundsForm.get('amount')?.value > balance" id="amountHelp" class="form-text">Please provide a valid amount
+                    </div>
+                    <div  
+                    *ngIf="transactiontype == 'add' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.value > balance" id="amountHelp" class="form-text">Please provide a valid amount
+                    </div>
                   </div>
+                    
                   <div class="m-3">
                     <label class="form-label">Mode of Payment:</label>
                     <select formControlName = "modeOfPayment" class=" form-control form-select" aria-label="Default select example">
@@ -54,10 +62,11 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button *ngIf="!isSaving" type="button" class="btn btn-primary" (click)="addFund()" [disabled]="addFundsForm.invalid">Add</button>
+              <button *ngIf="!isSaving && transactiontype == 'add'" type="button" class="btn btn-primary" (click)="addFund()" [disabled]="addFundsForm.invalid">Add</button>
+              <button *ngIf="!isSaving && transactiontype == 'withdraw'" type="button" class="btn btn-primary" (click)="withdrawFund()" [disabled]="addFundsForm.invalid  || addFundsForm.get('amount')?.value > balance">Withdraw</button>
               <button  *ngIf="isSaving" type="button" class="btn btn-primary">
                 <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
-                Adding...</button>
+                Processing...</button>
             </div>
           </div>
         </div>

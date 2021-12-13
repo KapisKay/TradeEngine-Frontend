@@ -75,7 +75,7 @@
                   <form [formGroup]="buyForm">
                     <div class="">
                       <div class="m-3">
-                        <label class="form-label">Amount:</label>
+                        <label class="form-label">Price:</label>
                         <input formControlName="amount" type="number" class="form-control" min="1" id="amountInput" aria-describedby="amountlHelp">
                       <div  
                         *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>

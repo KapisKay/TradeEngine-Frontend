@@ -73,11 +73,11 @@ export class DashboardComponent implements OnInit {
   /** Get Account Details */
   getAccountDetails(){
     this.isLoading = true;
-    this.auth.get('accountservice/account/accountId/' + this.userID).subscribe({
+    this.auth.get('accountservice/account/clientId/' + this.userID).subscribe({
       next: (response:any) =>{
         console.log(response);
-        this.accountDetails.account_id = response.accountID;
-        this.accountDetails.account_balance = response.totlBalance;
+        this.accountDetails.account_id = response.accountId;
+        this.accountDetails.account_balance = response.totalBalance; 
         this.getOrders();
         this.isLoading = false;
       },

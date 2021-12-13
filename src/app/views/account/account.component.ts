@@ -14,10 +14,12 @@ export class AccountComponent implements OnInit {
   isLoading = false; 
   isSaving = false;
   userID = localStorage.getItem('userID');
+  transactiontype = '';
+  balance = 0;
 
   accountDetails = {
     account_id : '',
-    account_balance : ''
+    account_balance : null
   }
 
   transactions: any = [];
@@ -41,6 +43,15 @@ export class AccountComponent implements OnInit {
       amount: new FormControl(null, Validators.required),
       modeOfPayment: new FormControl(null, Validators.required),
     })
+  }
+
+  /** Transaction types */
+  add(){
+    this.transactiontype = 'add'
+  }
+
+  withdraw(){
+    this.transactiontype = 'withdraw'
   }
 
   /** Add Funds */
@@ -73,6 +84,39 @@ export class AccountComponent implements OnInit {
     
   }
 
+  /** Withdraw Funds */
+  withdrawFund(){
+    console.log(this.addFundsForm.getRawValue())
+    const formData = this.addFundsForm.getRawValue();
+    const data = {
+      amount: formData.amount,
+      modeOfPayment: formData.modeOfPayment
+    }
+
+    this.isSaving = true;
+    this.auth.store('accountservice/account/'+ this.accountDetails.account_id + '/withdraw' , data).subscribe({
+      next: (response:any)=>{
+        console.log(response);
+        this.isSaving = false;
+        this.alert.success("Funds withdrawn successfully");
+        this.addFundsForm.reset();
+        this.utils.closeModal('addFunds', 'add-funds');
+        this.getAccountDetails();
+        this.getTransactions(this.accountDetails.account_id);
+      },
+      error: (error)=>{
+        this.isSaving = false;
+        console.log(error);
+        this.alert.error(error.message);
+      }
+    })
+
+    
+  }
+
+
+  
+
   /** Get Account Details */
   getAccountDetails(){
     this.isLoading = true;
@@ -81,6 +125,7 @@ export class AccountComponent implements OnInit {
         console.log(response);
         this.accountDetails.account_id = response.accountId;
         this.accountDetails.account_balance = response.totalBalance;
+        this.balance = response.totalBalance;
         this.getTransactions(this.accountDetails.account_id);
         this.isLoading = false;
       },
