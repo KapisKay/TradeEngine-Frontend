@@ -20,7 +20,7 @@ export class AccountComponent implements OnInit {
     account_balance : ''
   }
 
-  transactions: any;
+  transactions: any = [];
 
 
   constructor(
@@ -53,13 +53,15 @@ export class AccountComponent implements OnInit {
     }
 
     this.isSaving = true;
-    this.auth.store('account/'+ this.accountDetails.account_id + '/addFunds' , data).subscribe({
+    this.auth.store('accountservice/account/'+ this.accountDetails.account_id + '/addFunds' , data).subscribe({
       next: (response:any)=>{
         console.log(response);
         this.isSaving = false;
-        this.alert.success(response.message);
+        this.alert.success("Funds added successfully");
         this.addFundsForm.reset();
         this.utils.closeModal('addFunds', 'add-funds');
+        this.getAccountDetails();
+        this.getTransactions(this.accountDetails.account_id);
       },
       error: (error)=>{
         this.isSaving = false;
@@ -74,11 +76,11 @@ export class AccountComponent implements OnInit {
   /** Get Account Details */
   getAccountDetails(){
     this.isLoading = true;
-    this.auth.get('account/accountId/' + this.userID).subscribe({
+    this.auth.get('accountservice/account/clientId/' + this.userID).subscribe({
       next: (response:any) =>{
         console.log(response);
-        this.accountDetails.account_id = response.accountID;
-        this.accountDetails.account_balance = response.totlBalance;
+        this.accountDetails.account_id = response.accountId;
+        this.accountDetails.account_balance = response.totalBalance;
         this.getTransactions(this.accountDetails.account_id);
         this.isLoading = false;
       },
@@ -95,10 +97,10 @@ export class AccountComponent implements OnInit {
 
   getTransactions(id:any){
     this.isLoading = true;
-    this.auth.get('transactions/'+id).subscribe({
+    this.auth.get('accountservice/transactions/'+id).subscribe({
       next: (response)=>{
         console.log(response);
-        response = this.transactions;
+        this.transactions = response;
         this.isLoading = false;
       },
       error: (error)=>{
@@ -110,3 +112,5 @@ export class AccountComponent implements OnInit {
   }
 
 }
+
+

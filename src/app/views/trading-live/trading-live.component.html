@@ -9,8 +9,11 @@
       <h4 class="title">Market Data</h4>
     </div>
     <br>
-    <div class="table-responsive table-row">
-    
+    <div class="" *ngIf="market_data == null">
+      Market Data is currently not available
+    </div>
+    <div *ngIf="market_data !== null" class="table-responsive table-row">
+   
         <table class="table  table-borderless">
             <thead>
               <tr class ="tableheader">

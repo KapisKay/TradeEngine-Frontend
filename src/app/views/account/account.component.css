@@ -21,3 +21,9 @@
     border-color: #E87200;
     box-shadow: 0 0 0 0.2rem #f0a764;
 }
+.tableheader{
+    color: rgba(0, 0, 34, 0.3);
+}
+.sub, .tabledata, .modal-body{
+    color: #000020
+}
