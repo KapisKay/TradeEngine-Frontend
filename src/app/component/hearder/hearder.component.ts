@@ -9,6 +9,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./hearder.component.css']
 })
 export class HearderComponent implements OnInit {
+  prtID= '';
 
   paramRoute: string = '';
   name = localStorage.getItem('user');

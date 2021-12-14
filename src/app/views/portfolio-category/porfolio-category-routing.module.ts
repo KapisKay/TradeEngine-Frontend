@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { OrderHistoryComponent } from './order-history.component';
+import { PortfolioCategoryComponent } from './porfolio-category.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: OrderHistoryComponent,
+    component: PortfolioCategoryComponent,
   }
 ];
 
@@ -13,4 +13,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class OrderHistoryRoutingModule { }
+export class PortfolioCategoryRoutingModule { }

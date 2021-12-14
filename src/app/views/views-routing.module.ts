@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from '../guards/auth.guard';
+import { ClientGuard } from '../guards/client.guard';
 import { ViewsComponent } from './views.component';
 
 const routes: Routes = [   
@@ -14,7 +16,7 @@ const routes: Routes = [
   {
     path: '',
     component: ViewsComponent,
-    // canActivate: [AuthGuard, ClientGuard],
+    canActivate: [ClientGuard],
     children: [
       {
         path: 'dashboard',
@@ -33,8 +35,8 @@ const routes: Routes = [
       {
         path: 'orders',
         loadChildren: () =>
-          import('./order-history/order-history.module').then(
-            (module) => module.OrderHistoryModule
+          import('./portfolio-category/porfolio-category.module').then(
+            (module) => module.PortfolioCategoryModule
           ),
       },
       {
@@ -45,10 +47,10 @@ const routes: Routes = [
           ),
       },
       {
-        path: 'portfolio/:id',
+        path: 'portfolio-category',
         loadChildren: () =>
-          import('./portfolio/portfolio.module').then(
-            (module) => module.PortfolioModule
+          import('./portfolio-category/porfolio-category.module').then(
+            (module) => module.PortfolioCategoryModule
           ),
       },
       {

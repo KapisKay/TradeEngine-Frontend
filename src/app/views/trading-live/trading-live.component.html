@@ -76,7 +76,7 @@
                     <div class="">
                       <div class="m-3">
                         <label class="form-label">Price:</label>
-                        <input formControlName="amount" type="number" class="form-control" min="1" id="amountInput" aria-describedby="amountlHelp">
+                        <input formControlName="amount" type="number" class="form-control" min="0" id="amountInput" aria-describedby="amountlHelp">
                       <div  
                         *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
                       </div>
@@ -92,7 +92,10 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" (click)="buyProduct(product?.ticker)" [disabled]="buyForm.invalid">Buy</button>
+                  <button  *ngIf="!isSaving" type="button" class="btn btn-primary" (click)="buyProduct(product?.ticker)" [disabled]="buyForm.invalid">Buy</button>
+                  <button  *ngIf="isSaving" type="button" class="btn btn-primary">
+                    <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
+                    Processing...</button>
                 </div>
               </div>
             </div>

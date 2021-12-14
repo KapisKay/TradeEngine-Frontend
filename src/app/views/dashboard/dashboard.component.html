@@ -35,9 +35,9 @@
           <div class=" col-lg-5 col-12 m-3">
             <label class="form-label">Status:</label>
             <select formControlName = "status" class=" form-control form-select" aria-label="Default select example">
-              <option value="Canceled">Canceled</option>
-              <option value="Processing">Prosessing</option>
-              <option value="Validated">Validated</option>
+              <option value="CANCELED">Canceled</option>
+              <option value="EXECUTING">Executing</option>
+              <option value="FULFILLED">Fulfilled</option>
             </select>
           </div>
           <div class="col-lg-2 col-12 mt-lg-5 m-3">
@@ -54,31 +54,40 @@
               <thead>
                 <tr class="tableheader">
                   <th scope="col">Order ID</th>
-                  <th scope="col">Time Stamp</th>
-                  <th scope="col">Ticker</th>
+                  <th scope="col">As AT</th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
                   <th scope="col">Quantity</th>
-                  <th scope="col">Amount</th>
+                  <th scope="col">Value</th>
+                  <th scope="col">Market Price</th>
                   <th scope="col">Side</th>
                   <th scope="col">Status</th>
-                  <th scope="col">Action</th>
+                  <th scope="col"></th>
                 </tr>
               </thead>
               <tbody>
-                <tr class="tabledata">
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>
-                    <button data-toggle="modal" data-target="#buyModal" id="edit-order" class="btn btn-info m-1"><i class="fa fa-edit"></i></button>
-                    <button (click)="confirmCancel('id', 'ticker','side')" class="btn btn-danger m-1"><i class="fa fa-times"></i></button>
+                <tr *ngFor="let data of orders index as i" class="tabledata">
+                  <td>{{data?.id}}</td>
+                  <td>{{data?.timestamp | date: 'YYYY-dd-MM HH:ss'}}</td>
+                  <td>{{data?.product}}</td>
+                  <td>{{data?.price}}</td>
+                  <td>{{data?.quantity}}</td>
+                  <td>{{data?.value}}</td>
+                  <td>{{data?.marketPrice}}</td>
+                  <td>{{data?.side}}</td>
+                  <td>{{data?.status}}</td>
+                  <td *ngIf="data?.status !== 'FULFILLED'">
+                    <button (click)="getOrder(data?.id)" data-toggle="modal" data-target="#buyModal" id="edit-order" class="btn btn-info m-1"><i class="fa fa-edit"></i></button>
+                    <button (click)="confirmCancel(data?.id, data?.product,data?.side)" class="btn btn-danger m-1"><i class="fa fa-times"></i></button>
                   </td>
                 </tr>
+                
               </tbody>
             </table>
+            <div class="text-right">
+              <ngb-pagination [pageSize]="pageSize" [collectionSize]="collectionSize" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+            </div>
+            
       </div>
 
       <!-- Modal form for adding funds -->
@@ -94,22 +103,22 @@
             <div class="modal-body">
               <div class="row m-3">
                 <div class="col-lg-6 col-12">
-                  Ticker: {{order?.ticker}}
+                  Ticker: {{order?.product}}
                 </div>
                 <div class="col-lg-6 col-12">
-                  Last traded price: {{order?.last_traded_price}}
+                  Last traded price: {{order?.price}}
                 </div>
                 <div class="col-lg-6 col-12">
-                  Bid price: {{order?.bid_price}}
+                  Bid price: {{order?.marketPrice}}
                 </div>
                 <div class="col-lg-6 col-12">
-                  Buy Limit: {{order?.buy_limit}}
+                  Buy Limit: {{order?.side}}
                 </div>
               </div>
               <form [formGroup]="buyForm">
                 <div class="">
                   <div class="m-3">
-                    <label class="form-label">Amount:</label>
+                    <label class="form-label">Price:</label>
                     <input formControlName="amount" type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
                   <div  
                     *ngIf="buyForm.get('amount')?.touched && buyForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
@@ -126,7 +135,10 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary" (click)="updateOrder(order?.id)" [disabled]="buyForm.invalid">Update Order</button>
+              <button *ngIf="!isSaving" type="button" class="btn btn-primary" (click)="updateOrder(order?.id, order?.product)" [disabled]="buyForm.invalid">Update Order</button>
+              <button  *ngIf="isSaving" type="button" class="btn btn-primary">
+                <img width="15px" height="15px" src="../../../assets/ajax-loader.gif" alt=""/>
+                Processing...</button>
             </div>
           </div>
         </div>

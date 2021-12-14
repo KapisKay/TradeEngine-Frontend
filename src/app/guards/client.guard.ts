@@ -24,7 +24,7 @@ export class ClientGuard implements CanActivate {
     | UrlTree {
       const role = localStorage.getItem('role');
 
-      if(role == 'client'){
+      if(role == 'CLIENT'){
         return true;
       }
       else{

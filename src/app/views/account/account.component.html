@@ -41,10 +41,10 @@
                     <label class="form-label">Amount:</label>
                     <input formControlName="amount" required  type="number" class="form-control" id="amountInput" aria-describedby="amountlHelp">
                     <div  
-                    *ngIf="transactiontype == 'withdraw' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required') || addFundsForm.get('amount')?.value > balance" id="amountHelp" class="form-text">Please provide a valid amount
+                    *ngIf="transactiontype == 'withdraw' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.value > balance" id="amountHelp" class="form-text">Please provide a valid amount
                     </div>
                     <div  
-                    *ngIf="transactiontype == 'add' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.value > balance" id="amountHelp" class="form-text">Please provide a valid amount
+                    *ngIf="transactiontype == 'add' && addFundsForm.get('amount')?.touched && addFundsForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount
                     </div>
                   </div>
                     

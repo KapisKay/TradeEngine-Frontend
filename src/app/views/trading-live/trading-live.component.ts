@@ -76,12 +76,15 @@ export class TradingLiveComponent implements OnInit {
       user_id : Number(this.userID),
       quantity: formData.quantity,
       price: formData.amount,
-      product: ticker
+      product: ticker,
+      side: 'BUY'
     }
     this.isSaving = true;
     this.auth.store('orderservice/orders', data).subscribe({
       next: (response:any)=>{
         console.log(response);
+        this.alert.success('Order placed succesfully');
+        this.utils.closeModal('buyModal','add-funds')
         this.isSaving = false;
       },
       error: (error)=>{

@@ -13,24 +13,8 @@
           <span class="navbar-toggler-icon"></span>
         </button>
       
-        <div class="collapse navbar-collapse flex-column" id="navbarTogglerDemo02">
+        <div class="collapse navbar-collapse flex-column mt-5" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0 flex-column" *ngFor="let item of menu_items">
-    
-            <!-- != GROUP ITEMS -->
-              <li *ngIf="item.type == 'group'" class="nav-item sidebar-nav-item">
-                <a href="#" class="nav-link"
-                  ><i [ngClass]="item.icon"></i><span> {{ item.title }} &nbsp; </span>
-                  <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span></a
-                >
-                <ul class="nav sub-group-menu">
-                  <li class="nav-item" *ngFor="let child of item.children">
-                    <a (click)="onNavigate(child.url)" class="nav-link"
-                      ><i [ngClass]="child.icon"></i> {{ child.title }}&nbsp;
-                      <span *ngIf="item.badge" class="badge" [ngClass]="item.badge.type"> {{ item.badge.title }} </span>
-                    </a>
-                  </li>
-                </ul>
-              </li>
               <!-- != SINGLE ITEM -->
               <li [ngClass]="{'active': this.item.url == activeRoute}" *ngIf="item.type == 'item'" class="nav-item">
                 <a (click)="onNavigate(item.url)" class="nav-link"

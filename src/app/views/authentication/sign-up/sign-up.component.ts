@@ -92,7 +92,7 @@ export class SignUpComponent implements OnInit {
       error: error=>{
         this.isSaving = false;
         console.log(error);
-        this.alert.error(error.message)
+        this.alert.error(error.error.message)
       }
     }
     )

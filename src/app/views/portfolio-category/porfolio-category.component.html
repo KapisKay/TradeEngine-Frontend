@@ -29,36 +29,16 @@
                 <h5 class="primary">PortfolioValue</h5>
             </div>
         </div>
+        
         <br>
-        <div class="text-center">
-            <button [routerLink]="'/portfolio-category'" class="btn btn-primary">View Details</button>
-        </div>
-        <br>
-        <div class="table-responsive table-row">
-            <h5 class="primary">Products</h5>
-            <table class="table  table-borderless">
-                <thead>
-                <tr class="tableheader">
-                    <!-- <th scope="col">Order ID</th> -->
-                    <!-- <th scope="col">Timestamp</th> -->
-                    <!-- <th scope="col">Side</th> -->
-                    <th scope="col">Product</th>
-                    <th scope="col">Quantity</th>
-                    <th scope="col">Price</th>
-                    <th scope="col">Value</th>
-                    <th scope="col">   </th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr class="tabledata">
-                    <td>@mdo</td>
-                    <th scope="row">1</th>
-                    <td>Mark</td>
-                    <td>1.40</td>
-                <td><button class="btn btn-secondary sell" data-toggle="modal" data-target="#buyModal" id="add-funds" (click)="getProduct('data?.ticker')" >Sell</button></td>
-                </tr>
-                </tbody>
-            </table>
+        <div class="row">
+            <div class="col-lg-3">
+                <h5 class="primary">Products</h5>
+                <div class="">
+                    
+                </div>
+            </div>
+            
 
               <!-- Modal form for adding funds -->
           <div class="modal fade" id="buyModal" tabindex="-1" role="dialog" aria-labelledby="buyModalLabel" aria-hidden="true">
@@ -73,31 +53,25 @@
                 <div class="modal-body">
                   <div class="row m-3">
                     <div class="col-lg-6 col-12">
-                      Ticker: {{product?.ticker}}
+                      Ticker: 
                     </div>
                     <div class="col-lg-6 col-12">
-                      Last traded price: {{product?.lastTradedPrice}}
+                      Last traded price: 
                     </div>
                     <div class="col-lg-6 col-12">
-                      Bid price: {{product?.askPrice}}
+                      Bid price: 
                     </div>
                     <div class="col-lg-6 col-12">
-                     Buy Limit: {{product?.sellLimit}}
+                     Buy Limit: 
                     </div>
                   </div>
-                  <form [formGroup]="sellForm">
+                  <form [formGroup]="porfolioForm">
                     <div class="">
                       <div class="m-3">
                         <label class="form-label">Price:</label>
-                        <input formControlName="amount" type="number" class="form-control" min="1" id="amountInput" aria-describedby="amountlHelp">
+                        <input formControlName="name" type="text" class="form-control" min="1" id="nameInput" aria-describedby="namelHelp">
                       <div  
-                        *ngIf="sellForm.get('amount')?.touched && sellForm.get('amount')?.hasError('required')" id="amountHelp" class="form-text">Please provide a valid amount</div>
-                      </div>
-                      <div class="m-3">
-                        <label class="form-label">Quantity:</label>
-                        <input formControlName="quantity" type="number" min="1" class="form-control" id="referenceInput" aria-describedby="referencelHelp">
-                      <div  
-                        *ngIf="sellForm.get('quantity')?.touched && sellForm.get('quantity')?.hasError('required')" id="referenceHelp" class="form-text">Please provide a valid quantity</div>
+                        *ngIf="porfolioForm.get('name')?.touched && porfolioForm.get('name')?.hasError('required')" id="nameHelp" class="form-text">Please provide a valid name</div>
                       </div>
                     </div>
     
@@ -105,7 +79,7 @@
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                  <button type="button" class="btn btn-primary" (click)="sellProduct(product?.ticker)" [disabled]="sellForm.invalid">Buy</button>
+                  <button type="button" class="btn btn-primary"  [disabled]="porfolioForm.invalid">Buy</button>
                 </div>
               </div>
             </div>
